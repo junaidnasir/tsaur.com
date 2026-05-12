@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chalk — Pool Scoring</title>
+  <style>
+    :root { --bg: #0a0a0a; --card: #1a1a1a; --accent: #4ade80; --text: #fafafa; --muted: #a1a1aa; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { text-align: center; padding: 2rem; max-width: 420px; }
+    .icon { width: 120px; height: 120px; border-radius: 28px; background: linear-gradient(135deg, #1a1a2e, #16213e); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .icon span { font-size: 60px; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .tagline { color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; }
+    .badge { display: inline-block; padding: 14px 32px; background: var(--text); color: var(--bg); border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: transform 0.15s; }
+    .badge:hover { transform: scale(1.04); }
+    .features { margin-top: 2.5rem; display: grid; gap: 1rem; }
+    .feature { background: var(--card); border-radius: 12px; padding: 1rem; text-align: left; }
+    .feature h3 { font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .feature p { color: var(--muted); font-size: 0.85rem; }
+    .footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon"><span>🎱</span></div>
+    <h1>Chalk</h1>
+    <p class="tagline">British 8-ball pool, scored properly.</p>
+    <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="badge">
+      Download on the App Store
+    </a>
+    <div class="features">
+      <div class="feature">
+        <h3>🏆 Track Every Frame</h3>
+        <p>Shot-by-shot scoring with full history and stats.</p>
+      </div>
+      <div class="feature">
+        <h3>📊 Deep Analytics</h3>
+        <p>Win rates, pot accuracy, break stats, streaks — all automatic.</p>
+      </div>
+      <div class="feature">
+        <h3>☁️ Cloud Sync</h3>
+        <p>Sign in with Apple. Your data survives across devices.</p>
+      </div>
+      <div class="feature">
+        <h3>👥 Play With Friends</h3>
+        <p>Connect via handle or QR. Share sessions, compare stats.</p>
+      </div>
+    </div>
+    <p class="footer">Made by <a href="https://junaidnasir.com">Junaid Nasir</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["NQG652FD98.com.junaidnasir.chalk"],
+        "components": [
+          { "/": "/auth-callback", "comment": "Auth magic-link return" },
+          { "/": "/friend/*", "comment": "Friend invite deep link" }
+        ]
+      }
+    ]
+  }
+}

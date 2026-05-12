@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Friend — Chalk</title>
+  <style>
+    :root { --bg: #0a0a0a; --card: #1a1a1a; --accent: #4ade80; --text: #fafafa; --muted: #a1a1aa; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { text-align: center; padding: 2rem; max-width: 400px; }
+    .icon { font-size: 48px; margin-bottom: 1rem; }
+    h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .handle { font-family: 'SF Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--accent); letter-spacing: 0.15em; margin: 1rem 0; }
+    .desc { color: var(--muted); margin-bottom: 2rem; line-height: 1.5; }
+    .btn { display: inline-block; padding: 14px 32px; background: var(--text); color: var(--bg); border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: transform 0.15s; margin: 0.5rem; }
+    .btn:hover { transform: scale(1.04); }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const parts = window.location.pathname.split('/');
+      const handle = parts[parts.length - 1] || '';
+      const el = document.getElementById('handle');
+      if (handle && el) el.textContent = handle;
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🤝</div>
+    <h1>Friend Invite</h1>
+    <div class="handle" id="handle"></div>
+    <p class="desc">Someone wants to add you as a friend on Chalk. Open this link on your iPhone to connect.</p>
+    <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="btn">
+      Get Chalk
+    </a>
+  </div>
+</body>
+</html>
