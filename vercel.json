@@ -1,6 +1,10 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/chalk/index.html", "has": [{ "type": "host", "value": "chalk.tsaur.com" }] },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "chalk.tsaur.com" }],
+      "destination": "/chalk/:path*"
+    },
     { "source": "/friend/:handle", "destination": "/friend.html" }
   ],
   "headers": [
