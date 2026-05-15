@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chalk — British 8-ball pool, scored properly</title>
 <meta name="description" content="Shot-by-shot frame scoring, deep analytics, real-time multiplayer, and cloud sync for British 8-ball pool.">
+<meta property="og:title" content="Chalk — British 8-ball pool, scored properly">
+<meta property="og:description" content="Shot-by-shot frame scoring, deep analytics, real-time multiplayer, and cloud sync for British 8-ball pool.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -39,20 +41,31 @@ body{
   overflow-x:hidden;
 }
 
+/* ── Symbol emoji prevention ── */
+.sym,[data-sym]{
+  font-variant-emoji:text;
+  font-family:var(--mono);
+}
+
 /* ── Topbar ── */
 .topbar{
-  position:sticky;top:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;height:56px;
+  padding:0 28px;height:52px;
   background:var(--bg);
   border-bottom:1px solid var(--rule);
 }
 .topbar-brand{
-  font-family:var(--mono);font-size:12px;
-  letter-spacing:.04em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:13px;
+  letter-spacing:.04em;text-transform:lowercase;
   color:var(--ink);text-decoration:none;font-weight:500;
 }
-.topbar-brand .dot{color:var(--accent)}
+.topbar-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);display:inline-block;
+  flex-shrink:0;
+}
 .topbar-nav{display:flex;align-items:center;gap:24px}
 .topbar-nav a{
   font-family:var(--mono);font-size:11px;
@@ -61,25 +74,25 @@ body{
   transition:color 280ms;
 }
 .topbar-nav a:hover{color:var(--ink)}
-.topbar-nav .back{
-  padding:4px 10px;border:1px solid var(--rule);
+.topbar-nav .ext{
+  padding:4px 12px;border:1px solid var(--rule);
   border-radius:999px;color:var(--ink-soft);
 }
-.topbar-nav .back:hover{border-color:var(--ink-soft);color:var(--ink)}
+.topbar-nav .ext:hover{border-color:var(--ink-soft);color:var(--ink)}
 
 /* ── Hero ── */
 .hero{
-  padding:80px 28px 60px;
-  min-height:80vh;
+  padding:140px 28px 60px;
+  min-height:90vh;
   display:flex;flex-direction:column;justify-content:center;
 }
 .hero-mark{
-  font-size:clamp(120px,28vw,460px);
+  font-size:clamp(100px,22vw,380px);
   font-weight:800;
   letter-spacing:-.06em;
-  line-height:.78;
+  line-height:.82;
   color:var(--ink);
-  margin-bottom:32px;
+  margin-bottom:28px;
 }
 .hero-mark .dot{color:var(--accent)}
 .hero-lede{
@@ -89,20 +102,31 @@ body{
   line-height:1.15;
   color:var(--ink-soft);
   max-width:560px;
-  margin-bottom:48px;
+  margin-bottom:24px;
 }
-.hero-meta{
-  display:grid;
-  grid-template-columns:repeat(3,auto);
-  gap:32px;
-  justify-content:start;
-}
-.hero-meta-item{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.06em;text-transform:uppercase;
+.hero-meta-line{
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:.05em;text-transform:uppercase;
   color:var(--ink-mute);
+  margin-bottom:40px;
 }
-.hero-meta-item strong{color:var(--ink);font-weight:500}
+.hero-meta-line .sep{
+  padding:0 6px;opacity:.4;
+}
+.app-store-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;
+  background:#fff;color:var(--ink);
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  text-decoration:none;border-radius:999px;
+  border:1px solid var(--rule);
+  transition:background 280ms,border-color 280ms,transform 280ms var(--ease);
+}
+.app-store-btn:hover{
+  border-color:var(--ink-soft);
+  transform:translateY(-2px);
+}
+.app-store-btn svg{flex-shrink:0}
 
 /* ── Marquee ── */
 .marquee{
@@ -114,7 +138,7 @@ body{
 }
 .marquee-track{
   display:inline-flex;
-  animation:marquee 28s linear infinite;
+  animation:marquee 32s linear infinite;
 }
 .marquee-text{
   font-family:var(--sans);
@@ -129,6 +153,7 @@ body{
   font-style:italic;
   color:var(--accent);
   padding:0 12px;
+  font-variant-emoji:text;
 }
 @keyframes marquee{
   0%{transform:translateX(0)}
@@ -158,7 +183,7 @@ body{
 .feature-row{
   border-bottom:1px solid var(--rule);
   cursor:pointer;
-  transition:background 320ms var(--ease),padding 320ms var(--ease);
+  transition:background 320ms var(--ease);
 }
 .feature-row:hover{
   background:color-mix(in oklch, var(--accent) 5%, transparent);
@@ -181,10 +206,12 @@ body{
 }
 .feature-row:hover .feature-name{color:var(--accent)}
 .feature-arrow{
-  font-size:18px;
+  font-size:16px;
   color:var(--ink-mute);
   text-align:right;
   transition:transform 320ms var(--ease),color 280ms;
+  font-variant-emoji:text;
+  font-family:var(--mono);
 }
 .feature-row:hover .feature-arrow{
   color:var(--accent);
@@ -198,15 +225,50 @@ body{
   transition:max-height 420ms var(--ease);
 }
 .feature-body-inner{
-  padding:0 28px 28px 108px;
-  max-width:640px;
+  padding:0 28px 32px 108px;
+  display:flex;gap:32px;align-items:flex-start;
+  flex-wrap:wrap;
 }
 .feature-body-inner p{
   font-size:16px;line-height:1.55;
   color:var(--ink-soft);
+  max-width:400px;flex:1;min-width:240px;
+}
+.feature-screenshot{
+  width:280px;max-width:100%;
+  aspect-ratio:9/16;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      var(--rule) 8px,
+      var(--rule) 9px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      var(--rule) 8px,
+      var(--rule) 9px
+    );
+  background-color:var(--bg-deep);
+  border:1px solid var(--rule);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.feature-screenshot span{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-mute);
+  background:var(--bg);
+  padding:6px 14px;
+  border:1px solid var(--rule);
+  border-radius:4px;
 }
 .feature-row.open .feature-body{
-  max-height:300px;
+  max-height:600px;
 }
 
 /* ── About ── */
@@ -214,18 +276,11 @@ body{
   padding:80px 28px 60px;
 }
 .about-text{
-  font-size:clamp(28px,3.6vw,56px);
-  font-weight:600;
-  letter-spacing:-.035em;
-  line-height:1.1;
-  max-width:800px;
-  margin-bottom:40px;
-}
-.about-text em{
-  font-family:var(--serif);
-  font-style:italic;
-  font-weight:400;
-  color:var(--accent);
+  font-size:clamp(18px,1.6vw,22px);
+  line-height:1.55;
+  color:var(--ink-soft);
+  max-width:640px;
+  margin-bottom:48px;
 }
 .about-meta{
   display:grid;
@@ -249,16 +304,16 @@ body{
 
 /* ── Download ── */
 .download{
-  padding:80px 28px;
+  padding:100px 28px;
   border-top:1px solid var(--rule);
   text-align:center;
 }
 .download-mark{
-  font-size:clamp(48px,8vw,120px);
+  font-size:clamp(56px,10vw,140px);
   font-weight:800;
   letter-spacing:-.05em;
   line-height:.85;
-  margin-bottom:32px;
+  margin-bottom:20px;
 }
 .download-mark .dot{color:var(--accent)}
 .download-sub{
@@ -266,31 +321,12 @@ body{
   letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-mute);margin-bottom:40px;
 }
-.download-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:16px 32px;
-  background:var(--ink);color:var(--bg);
-  font-family:var(--sans);font-size:16px;font-weight:600;
-  text-decoration:none;border-radius:999px;
-  transition:background 280ms,transform 280ms var(--ease);
-}
-.download-btn:hover{
-  background:var(--accent);
-  transform:translateY(-2px);
-}
-.download-btn .arrow{
-  transition:transform 280ms var(--ease);
-}
-.download-btn:hover .arrow{
-  transform:translateX(3px) rotate(-45deg);
-}
 
 /* ── Footer ── */
 .footer{
-  background:var(--ink);
-  color:var(--bg);
+  background:#14110d;
+  color:#f6f1e6;
   padding:80px 28px 28px;
-  border-top:1px solid color-mix(in oklch, var(--bg) 30%, transparent);
 }
 .footer-inner{
   display:grid;
@@ -300,14 +336,14 @@ body{
 }
 .footer-brand{
   font-family:var(--mono);font-size:12px;
-  letter-spacing:.04em;text-transform:uppercase;
+  letter-spacing:.04em;
   opacity:.5;
 }
-.footer-links{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.footer-links{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
 .footer-links a{
   font-family:var(--mono);font-size:12px;
   letter-spacing:.04em;text-transform:uppercase;
-  color:var(--bg);opacity:.5;text-decoration:none;
+  color:#f6f1e6;opacity:.5;text-decoration:none;
   transition:opacity 280ms;
 }
 .footer-links a:hover{opacity:1}
@@ -322,28 +358,30 @@ body{
   opacity:.35;
 }
 
-/* ── Scroll reveal ── */
-.reveal{
-  opacity:0;
-  transform:translateY(24px);
-  transition:opacity 600ms var(--ease),transform 600ms var(--ease);
-}
-.reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
 /* ── Responsive ── */
 @media(max-width:880px){
-  .hero-meta{grid-template-columns:1fr;gap:12px}
   .feature-row-header{grid-template-columns:50px 1fr 40px}
-  .feature-body-inner{padding-left:78px}
-  .about-meta{grid-template-columns:1fr}
+  .feature-body-inner{padding-left:78px;flex-direction:column}
+  .feature-screenshot{width:220px}
+  .about-meta{grid-template-columns:1fr 1fr}
   .about-meta-cell{border-right:none;border-bottom:1px solid var(--rule)}
+  .about-meta-cell:nth-child(2){border-right:none}
   .about-meta-cell:last-child{border-bottom:none}
   .footer-inner{grid-template-columns:1fr}
   .footer-links{align-items:flex-start}
+}
+@media(max-width:480px){
   .topbar-nav .nav-link{display:none}
+  .hero{padding:120px 28px 40px;min-height:auto}
+  .hero-mark{margin-bottom:20px}
+  .hero-lede{margin-bottom:16px}
+  .section-header{grid-template-columns:50px 1fr;padding:60px 28px 20px}
+  .feature-row-header{padding:20px 28px}
+  .feature-body-inner{padding:0 28px 28px 50px}
+  .feature-screenshot{width:180px}
+  .about{padding:60px 28px 40px}
+  .about-meta{grid-template-columns:1fr}
+  .download{padding:60px 28px}
 }
 </style>
 </head>
@@ -351,108 +389,119 @@ body{
 
 <!-- Topbar -->
 <header class="topbar">
-  <a href="/" class="topbar-brand">chalk<span class="dot">.</span>tsaur<span class="dot">.</span>com</a>
+  <a href="#" class="topbar-brand">
+    <span class="topbar-dot"></span>
+    chalk
+  </a>
   <nav class="topbar-nav">
     <a href="#features" class="nav-link">Features</a>
-    <a href="#about" class="nav-link">About</a>
     <a href="#download" class="nav-link">Download</a>
-    <a href="https://tsaur.com" class="back">tsaur.com <span>↗</span></a>
+    <a href="https://tsaur.com" class="ext">More projects <span class="sym">→&#xFE0E;</span> tsaur.com</a>
   </nav>
 </header>
 
 <!-- Hero -->
 <section class="hero">
-  <h1 class="hero-mark reveal">Chalk<span class="dot">.</span></h1>
-  <p class="hero-lede reveal">British 8-ball pool, scored properly.</p>
-  <div class="hero-meta reveal">
-    <div class="hero-meta-item"><strong>iOS</strong> · SwiftUI</div>
-    <div class="hero-meta-item"><strong>V1.0</strong> · 2024</div>
-    <div class="hero-meta-item"><strong>Free</strong> on the App Store</div>
-  </div>
+  <h1 class="hero-mark">Chalk<span class="dot">.</span></h1>
+  <p class="hero-lede">British 8-ball pool, scored properly.</p>
+  <p class="hero-meta-line">iOS <span class="sep">·</span> Free on the App Store <span class="sep">·</span> V1.0</p>
+  <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="app-store-btn" target="_blank" rel="noopener">
+    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
+    Download on the App Store
+  </a>
 </section>
 
 <!-- Marquee -->
-<div class="marquee">
+<div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span class="marquee-text">Pool scoring done right <span class="star">✶</span> Shot-by-shot tracking <span class="star">✶</span> Real-time multiplayer <span class="star">✶</span> Deep analytics <span class="star">✶</span> Pool scoring done right <span class="star">✶</span> Shot-by-shot tracking <span class="star">✶</span> Real-time multiplayer <span class="star">✶</span> Deep analytics <span class="star">✶</span> Pool scoring done right <span class="star">✶</span> Shot-by-shot tracking <span class="star">✶</span> Real-time multiplayer <span class="star">✶</span> Deep analytics <span class="star">✶</span></span>
-    <span class="marquee-text">Pool scoring done right <span class="star">✶</span> Shot-by-shot tracking <span class="star">✶</span> Real-time multiplayer <span class="star">✶</span> Deep analytics <span class="star">✶</span> Pool scoring done right <span class="star">✶</span> Shot-by-shot tracking <span class="star">✶</span> Real-time multiplayer <span class="star">✶</span> Deep analytics <span class="star">✶</span> Pool scoring done right <span class="star">✶</span> Shot-by-shot tracking <span class="star">✶</span> Real-time multiplayer <span class="star">✶</span> Deep analytics <span class="star">✶</span></span>
+    <span class="marquee-text">Pool scoring done right <span class="star">✶&#xFE0E;</span> Shot-by-shot tracking <span class="star">✶&#xFE0E;</span> Real-time multiplayer <span class="star">✶&#xFE0E;</span> Deep analytics <span class="star">✶&#xFE0E;</span> Pool scoring done right <span class="star">✶&#xFE0E;</span> Shot-by-shot tracking <span class="star">✶&#xFE0E;</span> Real-time multiplayer <span class="star">✶&#xFE0E;</span> Deep analytics <span class="star">✶&#xFE0E;</span></span>
+    <span class="marquee-text">Pool scoring done right <span class="star">✶&#xFE0E;</span> Shot-by-shot tracking <span class="star">✶&#xFE0E;</span> Real-time multiplayer <span class="star">✶&#xFE0E;</span> Deep analytics <span class="star">✶&#xFE0E;</span> Pool scoring done right <span class="star">✶&#xFE0E;</span> Shot-by-shot tracking <span class="star">✶&#xFE0E;</span> Real-time multiplayer <span class="star">✶&#xFE0E;</span> Deep analytics <span class="star">✶&#xFE0E;</span></span>
   </div>
 </div>
 
 <!-- Features -->
-<div class="section-header reveal" id="features">
+<div class="section-header" id="features">
   <span class="section-num">§ 01</span>
   <span class="section-title">Features</span>
 </div>
 
-<div class="feature-row reveal" onclick="this.classList.toggle('open')">
+<div class="feature-row" onclick="toggleFeature(this)">
   <div class="feature-row-header">
     <span class="feature-num">01</span>
     <span class="feature-name">Frame Tracking</span>
-    <span class="feature-arrow">↗</span>
+    <span class="feature-arrow sym">→&#xFE0E;</span>
   </div>
   <div class="feature-body">
     <div class="feature-body-inner">
       <p>Score every frame shot-by-shot. Full match history with frame-level detail. Handles breaks, fouls, and ball-on-black rules.</p>
+      <div class="feature-screenshot"><span>Screenshot</span></div>
     </div>
   </div>
 </div>
 
-<div class="feature-row reveal" onclick="this.classList.toggle('open')">
+<div class="feature-row" onclick="toggleFeature(this)">
   <div class="feature-row-header">
     <span class="feature-num">02</span>
-    <span class="feature-name">Analytics</span>
-    <span class="feature-arrow">↗</span>
+    <span class="feature-name">Deep Analytics</span>
+    <span class="feature-arrow sym">→&#xFE0E;</span>
   </div>
   <div class="feature-body">
     <div class="feature-body-inner">
-      <p>Win rates, pot accuracy, break stats, streaks. All calculated automatically from your match data. Track improvement over time.</p>
+      <p>Win rates, pot accuracy, break stats, streaks. All calculated automatically from your match data.</p>
+      <div class="feature-screenshot"><span>Screenshot</span></div>
     </div>
   </div>
 </div>
 
-<div class="feature-row reveal" onclick="this.classList.toggle('open')">
+<div class="feature-row" onclick="toggleFeature(this)">
   <div class="feature-row-header">
     <span class="feature-num">03</span>
     <span class="feature-name">Real-time Multiplayer</span>
-    <span class="feature-arrow">↗</span>
+    <span class="feature-arrow sym">→&#xFE0E;</span>
   </div>
   <div class="feature-body">
     <div class="feature-body-inner">
       <p>Play live sessions with friends. Event-sourced sync via WebSocket. Host authority with desync detection.</p>
+      <div class="feature-screenshot"><span>Screenshot</span></div>
     </div>
   </div>
 </div>
 
-<div class="feature-row reveal" onclick="this.classList.toggle('open')">
+<div class="feature-row" onclick="toggleFeature(this)">
   <div class="feature-row-header">
     <span class="feature-num">04</span>
     <span class="feature-name">Cloud Sync</span>
-    <span class="feature-arrow">↗</span>
+    <span class="feature-arrow sym">→&#xFE0E;</span>
   </div>
   <div class="feature-body">
     <div class="feature-body-inner">
       <p>Sign in with Apple. Your matches, friends, and stats sync across all your devices.</p>
+      <div class="feature-screenshot"><span>Screenshot</span></div>
     </div>
   </div>
 </div>
 
-<div class="feature-row reveal" onclick="this.classList.toggle('open')">
+<div class="feature-row" onclick="toggleFeature(this)">
   <div class="feature-row-header">
     <span class="feature-num">05</span>
     <span class="feature-name">Friends</span>
-    <span class="feature-arrow">↗</span>
+    <span class="feature-arrow sym">→&#xFE0E;</span>
   </div>
   <div class="feature-body">
     <div class="feature-body-inner">
       <p>Connect via handle or QR code. Share sessions, compare stats, build your pool circle.</p>
+      <div class="feature-screenshot"><span>Screenshot</span></div>
     </div>
   </div>
 </div>
 
 <!-- About -->
-<section class="about reveal" id="about">
-  <p class="about-text">Shot-by-shot frame scoring, <em>deep analytics</em>, and real-time multiplayer for British 8-ball pool. Built with SwiftUI.</p>
+<section class="about" id="about">
+  <div class="section-header" style="padding-left:0;padding-right:0;margin-bottom:32px">
+    <span class="section-num">§ 02</span>
+    <span class="section-title">About Chalk</span>
+  </div>
+  <p class="about-text">Built for players who take their pool seriously. Chalk tracks every shot, every frame, every session — so you can see exactly where your game is improving.</p>
   <div class="about-meta">
     <div class="about-meta-cell">
       <div class="about-meta-label">Platform</div>
@@ -463,18 +512,19 @@ body{
       <div class="about-meta-value">Swift, SwiftUI, Supabase</div>
     </div>
     <div class="about-meta-cell">
-      <div class="about-meta-label">Status</div>
-      <div class="about-meta-value">● Live on the App Store</div>
+      <div class="about-meta-label">Price</div>
+      <div class="about-meta-value">Free</div>
     </div>
   </div>
 </section>
 
 <!-- Download -->
-<section class="download reveal" id="download">
+<section class="download" id="download">
   <h2 class="download-mark">Get Chalk<span class="dot">.</span></h2>
   <p class="download-sub">Free on the App Store</p>
-  <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="download-btn" target="_blank" rel="noopener">
-    Download for iOS <span class="arrow">↗</span>
+  <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="app-store-btn" target="_blank" rel="noopener" style="font-size:16px;padding:16px 32px">
+    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
+    Download on the App Store
   </a>
 </section>
 
@@ -482,32 +532,27 @@ body{
 <footer class="footer">
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">chalk<span style="color:var(--accent)">.</span>tsaur<span style="color:var(--accent)">.</span>com</div>
+      <div class="footer-brand">chalk.tsaur.com</div>
     </div>
     <div class="footer-links">
-      <a href="https://tsaur.com">tsaur.com ↗</a>
-      <a href="https://junaidnasir.com">Made by Junaid Nasir</a>
-      <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806">App Store ↗</a>
+      <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" target="_blank" rel="noopener">App Store <span class="sym">↗&#xFE0E;</span></a>
+      <a href="https://tsaur.com">tsaur.com <span class="sym">↗&#xFE0E;</span></a>
+      <a href="https://tsaur.com">Made by Junaid Nasir</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Tsaur</span>
-    <span>London, UK</span>
+    <span>© 2025 Tsaur <span class="sym">·</span> London, UK</span>
   </div>
 </footer>
 
 <script>
-// Scroll reveal
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+function toggleFeature(row) {
+  const wasOpen = row.classList.contains('open');
+  // Close all rows first
+  document.querySelectorAll('.feature-row.open').forEach(r => r.classList.remove('open'));
+  // Toggle clicked row
+  if (!wasOpen) row.classList.add('open');
+}
 </script>
 </body>
 </html>
