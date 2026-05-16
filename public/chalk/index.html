@@ -213,30 +213,7 @@ body{
   100%{transform:translateX(-50%)}
 }
 
-/* ── Numbers bar ── */
-.numbers-bar{
-  background:var(--ink);
-  color:var(--paper-light);
-  padding:36px clamp(20px,4vw,64px);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:24px;
-  flex-wrap:wrap;
-}
-.numbers-label{
-  font-family:var(--mono);font-size:12px;
-  letter-spacing:0.22em;text-transform:uppercase;
-  color:rgba(241,235,224,0.55);
-  min-width:120px;
-}
-.numbers-item{display:flex;align-items:baseline;gap:16px}
-.numbers-value{
-  font-family:var(--display);font-weight:600;
-  font-size:clamp(32px,4vw,56px);line-height:1;
-  letter-spacing:-0.03em;
-}
-.numbers-item .eyebrow{color:rgba(241,235,224,0.55);font-size:11px}
+/* ── Numbers bar (removed) ── */
 
 /* ── Features (3-up) ── */
 .features{
@@ -287,7 +264,7 @@ body{
   color:var(--ink-soft);max-width:380px;
 }
 
-/* ── Spread ── */
+/* ── Spread Slider ── */
 .spread{
   background:var(--paper-deep);
   padding:clamp(60px,8vw,120px) clamp(20px,4vw,64px);
@@ -325,8 +302,41 @@ body{
   justify-self:end;
   box-shadow:0 40px 80px -16px rgba(21,17,12,0.2),0 0 0 9px var(--ink-900),0 0 0 10px rgba(21,17,12,0.06);
   background:#fff;
+  position:relative;
 }
-.spread-phone img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.spread-phone img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  position:absolute;top:0;left:0;
+  opacity:0;transition:opacity 600ms var(--ease);
+}
+.spread-phone img.active{opacity:1}
+
+/* Slide content (left side text) */
+.spread-slides{position:relative;min-height:320px}
+.spread-slide{
+  position:absolute;top:0;left:0;width:100%;
+  opacity:0;pointer-events:none;
+  transition:opacity 500ms var(--ease),transform 400ms var(--ease);
+  transform:translateY(12px);
+}
+.spread-slide.active{
+  opacity:1;pointer-events:auto;
+  transform:translateY(0);
+  position:relative;
+}
+
+/* Slider dots */
+.spread-dots{
+  display:flex;gap:10px;margin-top:40px;
+}
+.spread-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--mute-soft);cursor:pointer;
+  transition:background 200ms,transform 200ms;
+  border:none;padding:0;
+}
+.spread-dot.active{background:var(--ink);transform:scale(1.2)}
+.spread-dot:hover{background:var(--ink-soft)}
 
 /* ── Spec sheet ── */
 .spec-sheet{
@@ -419,6 +429,7 @@ body{
   .features-grid .feature-card:last-child{grid-column:1/-1;max-width:50%}
   .spread-grid{grid-template-columns:1fr;gap:40px}
   .spread-phone{justify-self:center}
+  .spread-slides{min-height:auto}
   .spec-grid{grid-template-columns:1fr}
 }
 @media(max-width:768px){
@@ -429,8 +440,8 @@ body{
   .features-grid{grid-template-columns:1fr}
   .features-grid .feature-card:last-child{max-width:100%}
   .feature-card-img{height:380px}
-  .numbers-bar{flex-direction:column;align-items:flex-start;gap:20px}
   .spread-stats{flex-direction:column;gap:20px}
+  .spread-slides{min-height:auto}
   .spec-row{grid-template-columns:1fr;gap:8px}
   .cta-form{flex-direction:column}
   .cta-form .btn-pill{width:100%;justify-content:center}
@@ -519,30 +530,7 @@ body{
   </div>
 </div>
 
-<!-- Numbers Bar -->
-<div class="numbers-bar">
-  <div class="numbers-label">By the<br>Numbers</div>
-  <div class="numbers-item">
-    <div class="numbers-value">20</div>
-    <div class="eyebrow">Sessions</div>
-  </div>
-  <div class="numbers-item">
-    <div class="numbers-value">48</div>
-    <div class="eyebrow">Frames</div>
-  </div>
-  <div class="numbers-item">
-    <div class="numbers-value">450</div>
-    <div class="eyebrow">Pots</div>
-  </div>
-  <div class="numbers-item">
-    <div class="numbers-value">67%</div>
-    <div class="eyebrow">Win Rate</div>
-  </div>
-  <div class="numbers-item">
-    <div class="numbers-value">0</div>
-    <div class="eyebrow">Fouls</div>
-  </div>
-</div>
+
 
 <!-- Features -->
 <section class="features" id="features">
@@ -584,26 +572,76 @@ body{
   </div>
 </section>
 
-<!-- Spread -->
+<!-- Spread Slider — 3 slides: Track, Rivalries, Analytics -->
 <section class="spread" id="about">
   <div class="spread-grid">
     <div>
-      <div class="eyebrow">The rivalry matrix</div>
-      <div class="spread-title">See who<br>owns <em>who.</em></div>
-      <p class="spread-lede">Every head-to-head logged since the table arrived. Sort by win rate, frames played, or pots per frame. Tap any cell to see the frames behind the number.</p>
-      <div class="spread-stats">
-        <div>
-          <div class="spread-stat-value">7–2</div>
-          <div class="eyebrow" style="font-size:11px;margin-top:6px">Junaid vs Austin</div>
+      <div class="spread-slides">
+        <!-- Slide 1: Track everything -->
+        <div class="spread-slide active" data-slide="0">
+          <div class="eyebrow">Ball-by-ball scoring</div>
+          <div class="spread-title">Track<br><em>everything.</em></div>
+          <p class="spread-lede">Shot timer, pot-by-pot history, foul tracking — every moment of every frame captured. No more relying on memory when the table gets heated.</p>
+          <div class="spread-stats">
+            <div>
+              <div class="spread-stat-value">4:38</div>
+              <div class="eyebrow" style="font-size:11px;margin-top:6px">Avg frame time</div>
+            </div>
+            <div>
+              <div class="spread-stat-value">14</div>
+              <div class="eyebrow" style="font-size:11px;margin-top:6px">Shots this frame</div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="spread-stat-value">+24<span class="pct">%</span></div>
-          <div class="eyebrow" style="font-size:11px;margin-top:6px">Win-rate delta</div>
+
+        <!-- Slide 2: See who owns who -->
+        <div class="spread-slide" data-slide="1">
+          <div class="eyebrow">The rivalry matrix</div>
+          <div class="spread-title">See who<br>owns <em>who.</em></div>
+          <p class="spread-lede">Every head-to-head logged since the table arrived. Sort by win rate, frames played, or pots per frame. Tap any cell to see the frames behind the number.</p>
+          <div class="spread-stats">
+            <div>
+              <div class="spread-stat-value">7–2</div>
+              <div class="eyebrow" style="font-size:11px;margin-top:6px">Junaid vs Austin</div>
+            </div>
+            <div>
+              <div class="spread-stat-value">+24<span class="pct">%</span></div>
+              <div class="eyebrow" style="font-size:11px;margin-top:6px">Win-rate delta</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Analytics -->
+        <div class="spread-slide" data-slide="2">
+          <div class="eyebrow">Deep analytics</div>
+          <div class="spread-title">Know who's<br><em>hot.</em></div>
+          <p class="spread-lede">Win rates, form streaks, pots per frame, team pairings, leaderboards — all calculated automatically from your match data. See exactly where your game is improving.</p>
+          <div class="spread-stats">
+            <div>
+              <div class="spread-stat-value">70<span class="pct">%</span></div>
+              <div class="eyebrow" style="font-size:11px;margin-top:6px">Win rate</div>
+            </div>
+            <div>
+              <div class="spread-stat-value">8</div>
+              <div class="eyebrow" style="font-size:11px;margin-top:6px">Win streak</div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Dots -->
+      <div class="spread-dots">
+        <button class="spread-dot active" data-goto="0" aria-label="Track everything"></button>
+        <button class="spread-dot" data-goto="1" aria-label="See who owns who"></button>
+        <button class="spread-dot" data-goto="2" aria-label="Analytics"></button>
+      </div>
     </div>
+
+    <!-- Phone with sliding screenshots -->
     <div class="spread-phone">
-      <img src="screenshots/04_all_time.png" alt="All-time records and rivalry matrix" loading="lazy">
+      <img src="screenshots/02_history_list.png" alt="Frame tracking — ball-by-ball history" class="active" data-phone="0">
+      <img src="screenshots/04_all_time.png" alt="All-time records and rivalry matrix" data-phone="1">
+      <img src="screenshots/06_player_detail.png" alt="Player analytics — form, win rate, sparkline" data-phone="2">
     </div>
   </div>
 </section>
@@ -670,6 +708,58 @@ body{
     <span>© 2026</span>
   </div>
 </footer>
+
+<script>
+// Spread slider
+(function() {
+  const slides = document.querySelectorAll('.spread-slide');
+  const phones = document.querySelectorAll('.spread-phone img');
+  const dots = document.querySelectorAll('.spread-dot');
+  let current = 0;
+  let timer;
+
+  function goTo(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    phones.forEach(p => p.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    slides[i].classList.add('active');
+    phones[i].classList.add('active');
+    dots[i].classList.add('active');
+    current = i;
+  }
+
+  function next() {
+    goTo((current + 1) % slides.length);
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 5000);
+  }
+
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      goTo(parseInt(d.dataset.goto));
+      startTimer();
+    });
+  });
+
+  // Swipe support on the spread section
+  const spread = document.querySelector('.spread');
+  let touchStartX = 0;
+  spread.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  spread.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) goTo((current + 1) % slides.length);
+      else goTo((current - 1 + slides.length) % slides.length);
+      startTimer();
+    }
+  });
+
+  startTimer();
+})();
+</script>
 
 </body>
 </html>
