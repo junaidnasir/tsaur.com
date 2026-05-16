@@ -9,132 +9,185 @@
 <meta property="og:description" content="Shot-by-shot frame scoring, deep analytics, real-time multiplayer, and cloud sync for British 8-ball pool.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+* { font-variant-emoji: text; }
 
 :root{
-  --bg:#f6f1e6;
-  --bg-deep:#ede6d4;
-  --ink:#14110d;
-  --ink-soft:#4a463e;
-  --ink-mute:#8a8579;
-  --rule:#d6cdb8;
-  --accent:#d24317;
-  --sans:"Inter Tight","Helvetica Neue",sans-serif;
-  --serif:"Instrument Serif","Times New Roman",serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --paper:#F1EBE0;
+  --paper-light:#F8F3EA;
+  --paper-deep:#E8E0CF;
+  --ink:#15110C;
+  --ink-soft:#3a342c;
+  --mute:#9F978A;
+  --mute-soft:#C7BFB1;
+  --hair:rgba(21,17,12,0.10);
+  --ball-red:#E25A3E;
+  --ball-yellow:#E8B533;
+  --win-green:#1E8F4E;
+  --ink-900:#0c0a07;
+  --display:"Fraunces","Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  --mono:"JetBrains Mono","SF Mono",ui-monospace,monospace;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 
 html{
   scroll-behavior:smooth;
   -webkit-font-smoothing:antialiased;
-  font-feature-settings:"ss01","cv11";
 }
 body{
   font-family:var(--sans);
-  background:var(--bg);
+  background:var(--paper);
   color:var(--ink);
   line-height:1.45;
   font-size:16px;
   overflow-x:hidden;
 }
 
-/* ── Symbol emoji prevention ── */
-.sym,[data-sym]{
-  font-variant-emoji:text;
+/* ── Eyebrow label ── */
+.eyebrow{
   font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--mute);
 }
 
-/* ── Topbar ── */
-.topbar{
+/* ── Navbar ── */
+.navbar{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;height:52px;
-  background:var(--bg);
-  border-bottom:1px solid var(--rule);
+  padding:0 clamp(20px,4vw,64px);height:72px;
+  background:var(--paper);
+  border-bottom:1px solid var(--hair);
+  backdrop-filter:blur(12px);
 }
-.topbar-brand{
-  display:flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:13px;
-  letter-spacing:.04em;text-transform:lowercase;
-  color:var(--ink);text-decoration:none;font-weight:500;
+.wordmark{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--ink);
 }
-.topbar-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--accent);display:inline-block;
-  flex-shrink:0;
+.wordmark-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--ball-red);display:inline-block;flex-shrink:0;
 }
-.topbar-nav{display:flex;align-items:center;gap:24px}
-.topbar-nav a{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-mute);text-decoration:none;
-  transition:color 280ms;
+.wordmark-text{
+  font-family:var(--display);
+  font-weight:600;font-size:22px;
+  letter-spacing:-0.02em;
 }
-.topbar-nav a:hover{color:var(--ink)}
-.topbar-nav .ext{
-  padding:4px 12px;border:1px solid var(--rule);
-  border-radius:999px;color:var(--ink-soft);
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{
+  font-family:var(--sans);font-size:15px;
+  color:var(--ink-soft);text-decoration:none;
+  transition:color 200ms;
 }
-.topbar-nav .ext:hover{border-color:var(--ink-soft);color:var(--ink)}
+.nav-links a:hover{color:var(--ink)}
+.nav-version{
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--mute);
+}
+.btn-pill{
+  background:var(--ink);color:var(--paper-light);
+  border:none;padding:12px 22px;
+  border-radius:999px;font-size:14px;font-weight:500;
+  font-family:var(--sans);cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:transform 200ms var(--ease),opacity 200ms;
+}
+.btn-pill:hover{transform:translateY(-1px);opacity:0.9}
+.btn-pill-outline{
+  background:transparent;color:var(--ink);
+  border:1px solid var(--ink);padding:12px 22px;
+  border-radius:999px;font-size:14px;font-weight:500;
+  font-family:var(--sans);cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;
+  transition:background 200ms,transform 200ms var(--ease);
+}
+.btn-pill-outline:hover{background:rgba(21,17,12,0.04);transform:translateY(-1px)}
 
 /* ── Hero ── */
 .hero{
-  padding:140px 28px 60px;
-  min-height:90vh;
-  display:flex;flex-direction:column;justify-content:center;
+  padding:160px clamp(20px,4vw,64px) 80px;
+  position:relative;z-index:1;
 }
-.hero-mark{
-  font-size:clamp(100px,22vw,380px);
-  font-weight:800;
-  letter-spacing:-.06em;
-  line-height:.82;
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:64px;
+  align-items:center;
+}
+.hero h1{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(64px,11vw,140px);
+  line-height:0.92;
+  letter-spacing:-0.04em;
   color:var(--ink);
-  margin-bottom:28px;
+  text-wrap:balance;
+  margin:28px 0 0;
 }
-.hero-mark .dot{color:var(--accent)}
+.hero h1 em{font-style:italic;font-weight:500}
 .hero-lede{
-  font-family:var(--serif);
-  font-style:italic;
-  font-size:clamp(22px,2.2vw,34px);
-  line-height:1.15;
+  font-family:var(--sans);
+  font-size:clamp(18px,1.8vw,24px);
+  line-height:1.4;
   color:var(--ink-soft);
-  max-width:560px;
-  margin-bottom:24px;
-}
-.hero-meta-line{
-  font-family:var(--mono);font-size:12px;
-  letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-mute);
+  max-width:540px;
+  margin-top:32px;
   margin-bottom:40px;
+  letter-spacing:-0.005em;
 }
-.hero-meta-line .sep{
-  padding:0 6px;opacity:.4;
-}
-.app-store-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 28px;
-  background:#fff;color:var(--ink);
-  font-family:var(--sans);font-size:15px;font-weight:600;
-  text-decoration:none;border-radius:999px;
-  border:1px solid var(--rule);
-  transition:background 280ms,border-color 280ms,transform 280ms var(--ease);
-}
-.app-store-btn:hover{
-  border-color:var(--ink-soft);
-  transform:translateY(-2px);
-}
-.app-store-btn svg{flex-shrink:0}
+.hero-ctas{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.hero-ctas .btn-pill{font-size:16px;padding:18px 28px}
+.hero-ctas .btn-pill-outline{font-size:16px;padding:18px 26px}
 
-/* ── Marquee ── */
+/* Form dots */
+.form-streak{margin-top:56px;display:flex;align-items:center;gap:18px}
+.form-dots{display:flex;gap:7px}
+.form-dot{
+  width:12px;height:12px;border-radius:50%;
+}
+.form-dot.w{background:var(--win-green)}
+.form-dot.l{background:var(--ball-red)}
+
+/* Phone mockups */
+.hero-phones{
+  position:relative;height:760px;
+  display:flex;justify-content:center;
+}
+.phone{
+  position:absolute;
+  width:clamp(240px,22vw,320px);
+  height:auto;
+  aspect-ratio:9/19.5;
+  border-radius:42px;
+  overflow:hidden;
+  background:#fff;
+}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.phone-1{
+  top:-20px;right:60px;
+  transform:rotate(-6deg);
+  box-shadow:0 30px 60px -10px rgba(21,17,12,0.18),0 0 0 8px var(--ink-900),0 0 0 9px rgba(21,17,12,0.05);
+}
+.phone-2{
+  top:60px;left:20px;
+  transform:rotate(4deg);
+  box-shadow:0 30px 60px -10px rgba(21,17,12,0.22),0 0 0 8px var(--ink-900),0 0 0 9px rgba(21,17,12,0.05);
+}
+
+/* ── Marquee (KEPT from original) ── */
 .marquee{
   border-top:1px solid var(--ink);
   border-bottom:1px solid var(--ink);
   overflow:hidden;
   padding:14px 0;
   white-space:nowrap;
+  z-index:2;
+  position:relative;
 }
 .marquee-track{
   display:inline-flex;
@@ -144,14 +197,14 @@ body{
   font-family:var(--sans);
   font-size:clamp(14px,1.4vw,18px);
   font-weight:600;
-  letter-spacing:-.01em;
+  letter-spacing:-0.01em;
   color:var(--ink);
   padding-right:12px;
 }
 .marquee-text .star{
-  font-family:var(--serif);
+  font-family:var(--display);
   font-style:italic;
-  color:var(--accent);
+  color:var(--ball-red);
   padding:0 12px;
   font-variant-emoji:text;
 }
@@ -160,258 +213,305 @@ body{
   100%{transform:translateX(-50%)}
 }
 
-/* ── Section header ── */
-.section-header{
-  display:grid;
-  grid-template-columns:80px 1fr;
-  align-items:baseline;
-  padding:80px 28px 24px;
-  border-bottom:1px solid var(--rule);
-}
-.section-num{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-mute);
-}
-.section-title{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-mute);
-}
-
-/* ── Feature rows ── */
-.feature-row{
-  border-bottom:1px solid var(--rule);
-  cursor:pointer;
-  transition:background 320ms var(--ease);
-}
-.feature-row:hover{
-  background:color-mix(in oklch, var(--accent) 5%, transparent);
-}
-.feature-row-header{
-  display:grid;
-  grid-template-columns:80px 1fr 60px;
+/* ── Numbers bar ── */
+.numbers-bar{
+  background:var(--ink);
+  color:var(--paper-light);
+  padding:36px clamp(20px,4vw,64px);
+  display:flex;
+  justify-content:space-between;
   align-items:center;
-  padding:28px;
-}
-.feature-num{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.06em;color:var(--ink-mute);
-}
-.feature-name{
-  font-size:clamp(18px,2vw,24px);
-  font-weight:600;
-  letter-spacing:-.02em;
-  transition:color 280ms;
-}
-.feature-row:hover .feature-name{color:var(--accent)}
-.feature-arrow{
-  font-size:16px;
-  color:var(--ink-mute);
-  text-align:right;
-  transition:transform 320ms var(--ease),color 280ms;
-  font-variant-emoji:text;
-  font-family:var(--mono);
-}
-.feature-row:hover .feature-arrow{
-  color:var(--accent);
-  transform:translateX(4px);
-}
-.feature-row.open .feature-arrow{
-  transform:rotate(90deg);
-}
-.feature-body{
-  max-height:0;overflow:hidden;
-  transition:max-height 420ms var(--ease);
-}
-.feature-body-inner{
-  padding:0 28px 32px 108px;
-  display:flex;gap:32px;align-items:flex-start;
+  gap:24px;
   flex-wrap:wrap;
 }
-.feature-body-inner p{
-  font-size:16px;line-height:1.55;
-  color:var(--ink-soft);
-  max-width:400px;flex:1;min-width:240px;
+.numbers-label{
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(241,235,224,0.55);
+  min-width:120px;
 }
-.feature-screenshot{
-  width:280px;max-width:100%;
-  aspect-ratio:9/16;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 8px,
-      var(--rule) 8px,
-      var(--rule) 9px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 8px,
-      var(--rule) 8px,
-      var(--rule) 9px
-    );
-  background-color:var(--bg-deep);
-  border:1px solid var(--rule);
-  border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
+.numbers-item{display:flex;align-items:baseline;gap:16px}
+.numbers-value{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(32px,4vw,56px);line-height:1;
+  letter-spacing:-0.03em;
 }
-.feature-screenshot span{
-  font-family:var(--mono);font-size:10px;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-mute);
-  background:var(--bg);
-  padding:6px 14px;
-  border:1px solid var(--rule);
-  border-radius:4px;
-}
-.feature-row.open .feature-body{
-  max-height:600px;
-}
+.numbers-item .eyebrow{color:rgba(241,235,224,0.55);font-size:11px}
 
-/* ── About ── */
-.about{
-  padding:80px 28px 60px;
+/* ── Features (3-up) ── */
+.features{
+  padding:clamp(60px,8vw,120px) clamp(20px,4vw,64px);
 }
-.about-text{
-  font-size:clamp(18px,1.6vw,22px);
-  line-height:1.55;
-  color:var(--ink-soft);
-  max-width:640px;
-  margin-bottom:48px;
+.features-header{max-width:800px;margin-bottom:80px}
+.features-title{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(40px,6vw,84px);
+  line-height:0.95;letter-spacing:-0.035em;
+  margin-top:22px;
 }
-.about-meta{
+.features-title em{font-style:italic}
+.features-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:0;
-  border-top:1px solid var(--rule);
+  gap:32px;
 }
-.about-meta-cell{
-  padding:20px 0;
-  border-right:1px solid var(--rule);
+.feature-card-img{
+  background:var(--paper-light);
+  border:1px solid var(--hair);
+  border-radius:22px;
+  padding:24px;
+  margin-bottom:28px;
+  height:520px;
+  overflow:hidden;
+  position:relative;
 }
-.about-meta-cell:last-child{border-right:none}
-.about-meta-label{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.06em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:6px;
+.feature-card-img .phone-frame{
+  width:100%;height:100%;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 20px 40px -8px rgba(21,17,12,0.15),0 0 0 1px rgba(21,17,12,0.04);
+  background:#fff;
 }
-.about-meta-value{
-  font-size:14px;color:var(--ink-soft);
+.feature-card-img img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+}
+.feature-card .eyebrow{margin-bottom:14px}
+.feature-card-title{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(24px,2.5vw,36px);
+  line-height:1.05;letter-spacing:-0.02em;
+  margin-bottom:12px;
+}
+.feature-card p{
+  font-size:16px;line-height:1.5;
+  color:var(--ink-soft);max-width:380px;
 }
 
-/* ── Download ── */
-.download{
-  padding:100px 28px;
-  border-top:1px solid var(--rule);
+/* ── Spread ── */
+.spread{
+  background:var(--paper-deep);
+  padding:clamp(60px,8vw,120px) clamp(20px,4vw,64px);
+  border-top:1px solid var(--hair);
+}
+.spread-grid{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:80px;
+  align-items:center;
+}
+.spread-title{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(48px,7vw,96px);
+  line-height:0.92;letter-spacing:-0.035em;
+  margin:22px 0 32px;
+}
+.spread-title em{font-style:italic}
+.spread-lede{
+  font-size:20px;line-height:1.4;
+  color:var(--ink-soft);max-width:460px;margin-bottom:32px;
+}
+.spread-stats{display:flex;gap:32px;flex-wrap:wrap}
+.spread-stat-value{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(32px,3.5vw,48px);line-height:1;
+  letter-spacing:-0.03em;
+}
+.spread-stat-value .pct{font-size:0.6em;color:var(--mute)}
+.spread-phone{
+  width:clamp(280px,26vw,380px);
+  aspect-ratio:9/19.5;
+  border-radius:48px;
+  overflow:hidden;
+  justify-self:end;
+  box-shadow:0 40px 80px -16px rgba(21,17,12,0.2),0 0 0 9px var(--ink-900),0 0 0 10px rgba(21,17,12,0.06);
+  background:#fff;
+}
+.spread-phone img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
+/* ── Spec sheet ── */
+.spec-sheet{
+  padding:clamp(60px,8vw,120px) clamp(20px,4vw,64px);
+}
+.spec-grid{
+  display:grid;
+  grid-template-columns:1fr 1.4fr;
+  gap:80px;
+}
+.spec-title{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(36px,5vw,64px);
+  line-height:0.95;letter-spacing:-0.035em;
+  margin-top:22px;
+}
+.spec-title em{font-style:italic}
+.spec-row{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:32px;
+  padding:20px 0;
+  border-bottom:1px solid var(--hair);
+  align-items:baseline;
+}
+.spec-row:last-child{border-bottom:none}
+.spec-row-value{
+  font-family:var(--display);font-size:clamp(20px,2vw,28px);
+  font-weight:500;letter-spacing:-0.01em;
+  color:var(--ink);
+}
+
+/* ── CTA ── */
+.cta{
+  padding:clamp(60px,8vw,120px) clamp(20px,4vw,64px) 80px;
   text-align:center;
+  border-top:1px solid var(--hair);
 }
-.download-mark{
-  font-size:clamp(56px,10vw,140px);
-  font-weight:800;
-  letter-spacing:-.05em;
-  line-height:.85;
-  margin-bottom:20px;
+.cta-title{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(56px,10vw,128px);
+  line-height:0.92;letter-spacing:-0.04em;
+  margin:22px auto 32px;
+  max-width:1100px;
 }
-.download-mark .dot{color:var(--accent)}
-.download-sub{
-  font-family:var(--mono);font-size:12px;
-  letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-mute);margin-bottom:40px;
+.cta-title em{font-style:italic}
+.cta-lede{
+  font-size:22px;color:var(--ink-soft);
+  max-width:540px;margin:0 auto 40px;line-height:1.4;
 }
+.cta-form{
+  display:flex;justify-content:center;align-items:center;
+  gap:12px;max-width:500px;margin:0 auto;
+}
+.cta-input{
+  flex:1;padding:18px 22px;
+  background:var(--paper-light);
+  border:1px solid var(--hair);
+  border-radius:999px;font-size:15px;
+  color:var(--ink);font-family:var(--sans);
+  outline:none;transition:border-color 200ms;
+}
+.cta-input:focus{border-color:var(--mute)}
+.cta-input::placeholder{color:var(--mute)}
 
 /* ── Footer ── */
 .footer{
-  background:#14110d;
-  color:#f6f1e6;
-  padding:80px 28px 28px;
+  padding:40px clamp(20px,4vw,64px) 48px;
+  border-top:1px solid var(--hair);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
 }
-.footer-inner{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  margin-bottom:60px;
-}
-.footer-brand{
+.footer-links{
+  display:flex;gap:36px;
   font-family:var(--mono);font-size:12px;
-  letter-spacing:.04em;
-  opacity:.5;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--mute);
 }
-.footer-links{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-.footer-links a{
-  font-family:var(--mono);font-size:12px;
-  letter-spacing:.04em;text-transform:uppercase;
-  color:#f6f1e6;opacity:.5;text-decoration:none;
-  transition:opacity 280ms;
-}
-.footer-links a:hover{opacity:1}
-.footer-bottom{
-  display:flex;justify-content:space-between;
-  padding-top:20px;
-  border-top:1px solid rgba(246,241,230,.12);
-}
-.footer-bottom span{
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:.04em;text-transform:uppercase;
-  opacity:.35;
-}
+.footer-links a{color:var(--mute);text-decoration:none;transition:color 200ms}
+.footer-links a:hover{color:var(--ink)}
 
 /* ── Responsive ── */
-@media(max-width:880px){
-  .feature-row-header{grid-template-columns:50px 1fr 40px}
-  .feature-body-inner{padding-left:78px;flex-direction:column}
-  .feature-screenshot{width:220px}
-  .about-meta{grid-template-columns:1fr 1fr}
-  .about-meta-cell{border-right:none;border-bottom:1px solid var(--rule)}
-  .about-meta-cell:nth-child(2){border-right:none}
-  .about-meta-cell:last-child{border-bottom:none}
-  .footer-inner{grid-template-columns:1fr}
-  .footer-links{align-items:flex-start}
+@media(max-width:1100px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-phones{height:500px;margin-top:40px}
+  .phone{width:clamp(200px,40vw,280px)}
+  .phone-1{right:20px}
+  .phone-2{left:0}
+  .features-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .features-grid .feature-card:last-child{grid-column:1/-1;max-width:50%}
+  .spread-grid{grid-template-columns:1fr;gap:40px}
+  .spread-phone{justify-self:center}
+  .spec-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links .nav-link-text{display:none}
+  .nav-version{display:none}
+  .hero{padding-top:120px;padding-bottom:40px}
+  .hero-phones{height:400px}
+  .features-grid{grid-template-columns:1fr}
+  .features-grid .feature-card:last-child{max-width:100%}
+  .feature-card-img{height:380px}
+  .numbers-bar{flex-direction:column;align-items:flex-start;gap:20px}
+  .spread-stats{flex-direction:column;gap:20px}
+  .spec-row{grid-template-columns:1fr;gap:8px}
+  .cta-form{flex-direction:column}
+  .cta-form .btn-pill{width:100%;justify-content:center}
+  .footer{flex-direction:column;align-items:flex-start}
+  .footer-links{flex-wrap:wrap;gap:20px}
 }
 @media(max-width:480px){
-  .topbar-nav .nav-link{display:none}
-  .hero{padding:120px 28px 40px;min-height:auto}
-  .hero-mark{margin-bottom:20px}
-  .hero-lede{margin-bottom:16px}
-  .section-header{grid-template-columns:50px 1fr;padding:60px 28px 20px}
-  .feature-row-header{padding:20px 28px}
-  .feature-body-inner{padding:0 28px 28px 50px}
-  .feature-screenshot{width:180px}
-  .about{padding:60px 28px 40px}
-  .about-meta{grid-template-columns:1fr}
-  .download{padding:60px 28px}
+  .hero h1{font-size:clamp(48px,16vw,80px)}
+  .hero-phones{height:320px}
+  .phone{width:200px}
+  .phone-1{right:0;top:0}
+  .phone-2{left:0;top:40px}
 }
 </style>
 </head>
 <body>
 
-<!-- Topbar -->
-<header class="topbar">
-  <a href="#" class="topbar-brand">
-    <span class="topbar-dot"></span>
-    chalk
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="#" class="wordmark">
+    <span class="wordmark-dot"></span>
+    <span class="wordmark-text">chalk</span>
   </a>
-  <nav class="topbar-nav">
-    <a href="#features" class="nav-link">Features</a>
-    <a href="#download" class="nav-link">Download</a>
-    <a href="https://tsaur.com" class="ext">More projects <span class="sym">→&#xFE0E;</span> tsaur.com</a>
-  </nav>
-</header>
+  <div class="nav-links">
+    <a href="#features" class="nav-link-text">Features</a>
+    <a href="#about" class="nav-link-text">Stats</a>
+    <span class="nav-version">v1.0 · App Store</span>
+    <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="btn-pill" target="_blank" rel="noopener">
+      <svg width="16" height="20" viewBox="0 0 20 24" fill="none"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
+      App Store →
+    </a>
+  </div>
+</nav>
 
 <!-- Hero -->
 <section class="hero">
-  <h1 class="hero-mark">Chalk<span class="dot">.</span></h1>
-  <p class="hero-lede">British 8-ball pool, scored properly.</p>
-  <p class="hero-meta-line">iOS <span class="sep">·</span> Free on the App Store <span class="sep">·</span> V1.0</p>
-  <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="app-store-btn" target="_blank" rel="noopener">
-    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
-    Download on the App Store
-  </a>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">British 8-Ball · iOS · Free</div>
+      <h1>Rack <em>'em</em><br>up.</h1>
+      <p class="hero-lede">The scorekeeper built for the 4-player rotating-doubles pub scenario. Ball-by-ball, foul-aware, rotation-smart — and the only one keeping receipts.</p>
+      <div class="hero-ctas">
+        <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="btn-pill" target="_blank" rel="noopener">
+          <svg width="16" height="20" viewBox="0 0 20 24" fill="none"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
+          Download on the App Store
+        </a>
+        <a href="https://tsaur.com" class="btn-pill-outline">More from Tsaur</a>
+      </div>
+
+      <!-- Mini form streak -->
+      <div class="form-streak">
+        <div class="eyebrow" style="font-size:11px">Your last 10</div>
+        <div class="form-dots">
+          <span class="form-dot w"></span>
+          <span class="form-dot l"></span>
+          <span class="form-dot w"></span>
+          <span class="form-dot w"></span>
+          <span class="form-dot l"></span>
+          <span class="form-dot w"></span>
+          <span class="form-dot w"></span>
+          <span class="form-dot w"></span>
+          <span class="form-dot w"></span>
+          <span class="form-dot w"></span>
+        </div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--ink-soft)">7W · 3L</div>
+      </div>
+    </div>
+
+    <!-- Phone mockups -->
+    <div class="hero-phones">
+      <div class="phone phone-1">
+        <img src="screenshots/03_stats_hub.png" alt="Chalk analytics hub" loading="lazy">
+      </div>
+      <div class="phone phone-2">
+        <img src="screenshots/01_play_setup.png" alt="Chalk play setup" loading="lazy">
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Marquee -->
+<!-- Marquee — KEPT from original -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
     <span class="marquee-text">Pool scoring done right <span class="star">✶&#xFE0E;</span> Shot-by-shot tracking <span class="star">✶&#xFE0E;</span> Real-time multiplayer <span class="star">✶&#xFE0E;</span> Deep analytics <span class="star">✶&#xFE0E;</span> Pool scoring done right <span class="star">✶&#xFE0E;</span> Shot-by-shot tracking <span class="star">✶&#xFE0E;</span> Real-time multiplayer <span class="star">✶&#xFE0E;</span> Deep analytics <span class="star">✶&#xFE0E;</span></span>
@@ -419,140 +519,157 @@ body{
   </div>
 </div>
 
+<!-- Numbers Bar -->
+<div class="numbers-bar">
+  <div class="numbers-label">By the<br>Numbers</div>
+  <div class="numbers-item">
+    <div class="numbers-value">20</div>
+    <div class="eyebrow">Sessions</div>
+  </div>
+  <div class="numbers-item">
+    <div class="numbers-value">48</div>
+    <div class="eyebrow">Frames</div>
+  </div>
+  <div class="numbers-item">
+    <div class="numbers-value">450</div>
+    <div class="eyebrow">Pots</div>
+  </div>
+  <div class="numbers-item">
+    <div class="numbers-value">67%</div>
+    <div class="eyebrow">Win Rate</div>
+  </div>
+  <div class="numbers-item">
+    <div class="numbers-value">0</div>
+    <div class="eyebrow">Fouls</div>
+  </div>
+</div>
+
 <!-- Features -->
-<div class="section-header" id="features">
-  <span class="section-num">§ 01</span>
-  <span class="section-title">Features</span>
-</div>
-
-<div class="feature-row" onclick="toggleFeature(this)">
-  <div class="feature-row-header">
-    <span class="feature-num">01</span>
-    <span class="feature-name">Frame Tracking</span>
-    <span class="feature-arrow sym">→&#xFE0E;</span>
+<section class="features" id="features">
+  <div class="features-header">
+    <div class="eyebrow">What it does</div>
+    <div class="features-title">Built for the pub <em>scenario.</em></div>
   </div>
-  <div class="feature-body">
-    <div class="feature-body-inner">
-      <p>Score every frame shot-by-shot. Full match history with frame-level detail. Handles breaks, fouls, and ball-on-black rules.</p>
-      <div class="feature-screenshot"><span>Screenshot</span></div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-card-img">
+        <div class="phone-frame">
+          <img src="screenshots/01_play_setup.png" alt="Setup view — pick mode, players, rotation" loading="lazy">
+        </div>
+      </div>
+      <div class="eyebrow">01 · Setup</div>
+      <div class="feature-card-title">Knows the rotation.</div>
+      <p>Pick 1v1, 1v2, or 2v2. Fixed seats, rotating doubles, or winner stays — Chalk owns who breaks next and who partners who.</p>
     </div>
-  </div>
-</div>
-
-<div class="feature-row" onclick="toggleFeature(this)">
-  <div class="feature-row-header">
-    <span class="feature-num">02</span>
-    <span class="feature-name">Deep Analytics</span>
-    <span class="feature-arrow sym">→&#xFE0E;</span>
-  </div>
-  <div class="feature-body">
-    <div class="feature-body-inner">
-      <p>Win rates, pot accuracy, break stats, streaks. All calculated automatically from your match data.</p>
-      <div class="feature-screenshot"><span>Screenshot</span></div>
+    <div class="feature-card">
+      <div class="feature-card-img">
+        <div class="phone-frame">
+          <img src="screenshots/09_session_detail.png" alt="Session detail — shot-by-shot frame scoring" loading="lazy">
+        </div>
+      </div>
+      <div class="eyebrow">02 · Score</div>
+      <div class="feature-card-title">Ball-by-ball, foul-aware.</div>
+      <p>Every pot, every miss, every foul gets logged. No more arguments about whether that scratch on the black was a frame-loss.</p>
     </div>
-  </div>
-</div>
-
-<div class="feature-row" onclick="toggleFeature(this)">
-  <div class="feature-row-header">
-    <span class="feature-num">03</span>
-    <span class="feature-name">Real-time Multiplayer</span>
-    <span class="feature-arrow sym">→&#xFE0E;</span>
-  </div>
-  <div class="feature-body">
-    <div class="feature-body-inner">
-      <p>Play live sessions with friends. Event-sourced sync via WebSocket. Host authority with desync detection.</p>
-      <div class="feature-screenshot"><span>Screenshot</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="feature-row" onclick="toggleFeature(this)">
-  <div class="feature-row-header">
-    <span class="feature-num">04</span>
-    <span class="feature-name">Cloud Sync</span>
-    <span class="feature-arrow sym">→&#xFE0E;</span>
-  </div>
-  <div class="feature-body">
-    <div class="feature-body-inner">
-      <p>Sign in with Apple. Your matches, friends, and stats sync across all your devices.</p>
-      <div class="feature-screenshot"><span>Screenshot</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="feature-row" onclick="toggleFeature(this)">
-  <div class="feature-row-header">
-    <span class="feature-num">05</span>
-    <span class="feature-name">Friends</span>
-    <span class="feature-arrow sym">→&#xFE0E;</span>
-  </div>
-  <div class="feature-body">
-    <div class="feature-body-inner">
-      <p>Connect via handle or QR code. Share sessions, compare stats, build your pool circle.</p>
-      <div class="feature-screenshot"><span>Screenshot</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- About -->
-<section class="about" id="about">
-  <div class="section-header" style="padding-left:0;padding-right:0;margin-bottom:32px">
-    <span class="section-num">§ 02</span>
-    <span class="section-title">About Chalk</span>
-  </div>
-  <p class="about-text">Built for players who take their pool seriously. Chalk tracks every shot, every frame, every session — so you can see exactly where your game is improving.</p>
-  <div class="about-meta">
-    <div class="about-meta-cell">
-      <div class="about-meta-label">Platform</div>
-      <div class="about-meta-value">iOS 17+</div>
-    </div>
-    <div class="about-meta-cell">
-      <div class="about-meta-label">Stack</div>
-      <div class="about-meta-value">Swift, SwiftUI, Supabase</div>
-    </div>
-    <div class="about-meta-cell">
-      <div class="about-meta-label">Price</div>
-      <div class="about-meta-value">Free</div>
+    <div class="feature-card">
+      <div class="feature-card-img">
+        <div class="phone-frame">
+          <img src="screenshots/06_player_detail.png" alt="Player stats — win rate, form, sparkline" loading="lazy">
+        </div>
+      </div>
+      <div class="eyebrow">03 · Stats</div>
+      <div class="feature-card-title">Form, streaks, rivalries.</div>
+      <p>Win rate, pots per frame, ball-mix, average shot time, and a rivalry matrix that shows exactly who owns who.</p>
     </div>
   </div>
 </section>
 
-<!-- Download -->
-<section class="download" id="download">
-  <h2 class="download-mark">Get Chalk<span class="dot">.</span></h2>
-  <p class="download-sub">Free on the App Store</p>
-  <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="app-store-btn" target="_blank" rel="noopener" style="font-size:16px;padding:16px 32px">
-    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
-    Download on the App Store
-  </a>
+<!-- Spread -->
+<section class="spread" id="about">
+  <div class="spread-grid">
+    <div>
+      <div class="eyebrow">The rivalry matrix</div>
+      <div class="spread-title">See who<br>owns <em>who.</em></div>
+      <p class="spread-lede">Every head-to-head logged since the table arrived. Sort by win rate, frames played, or pots per frame. Tap any cell to see the frames behind the number.</p>
+      <div class="spread-stats">
+        <div>
+          <div class="spread-stat-value">7–2</div>
+          <div class="eyebrow" style="font-size:11px;margin-top:6px">Junaid vs Austin</div>
+        </div>
+        <div>
+          <div class="spread-stat-value">+24<span class="pct">%</span></div>
+          <div class="eyebrow" style="font-size:11px;margin-top:6px">Win-rate delta</div>
+        </div>
+      </div>
+    </div>
+    <div class="spread-phone">
+      <img src="screenshots/04_all_time.png" alt="All-time records and rivalry matrix" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- Spec Sheet -->
+<section class="spec-sheet">
+  <div class="spec-grid">
+    <div>
+      <div class="eyebrow">Colophon</div>
+      <div class="spec-title">Built like a<br><em>pet project</em><br>should be.</div>
+    </div>
+    <div>
+      <div class="spec-row">
+        <div class="eyebrow">Platform</div>
+        <div class="spec-row-value">iOS 17+ · iPhone only</div>
+      </div>
+      <div class="spec-row">
+        <div class="eyebrow">Built with</div>
+        <div class="spec-row-value">SwiftUI · SwiftData · Swift 6.3</div>
+      </div>
+      <div class="spec-row">
+        <div class="eyebrow">Sync</div>
+        <div class="spec-row-value">Supabase · Apple Sign In · cloud frames</div>
+      </div>
+      <div class="spec-row">
+        <div class="eyebrow">Modes</div>
+        <div class="spec-row-value">1v1 · 1v2 · 2v2 · fixed / rotating / winner-stays</div>
+      </div>
+      <div class="spec-row">
+        <div class="eyebrow">Status</div>
+        <div class="spec-row-value">V1.0 · Free on the App Store</div>
+      </div>
+      <div class="spec-row">
+        <div class="eyebrow">Watch</div>
+        <div class="spec-row-value">Companion app · later</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="download">
+  <div class="eyebrow">Now seating</div>
+  <div class="cta-title">Your <em>break.</em></div>
+  <p class="cta-lede">Chalk is free on the App Store. Download it and start keeping score properly.</p>
+  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+    <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" class="btn-pill" style="font-size:16px;padding:18px 32px" target="_blank" rel="noopener">
+      <svg width="16" height="20" viewBox="0 0 20 24" fill="none"><path d="M16.52 12.68c-.03-2.87 2.34-4.24 2.45-4.31-1.33-1.95-3.41-2.22-4.15-2.25-1.76-.18-3.45 1.04-4.34 1.04-.9 0-2.28-1.02-3.75-.99-1.93.03-3.71 1.12-4.71 2.85-2.01 3.49-.51 8.66 1.44 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.74-.93 1.74 0 2.24.93 3.76.9 1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.63h-.05zM13.64 4.15c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.37 1.73-.74.85-1.38 2.22-1.21 3.53 1.29.1 2.6-.65 3.39-1.61z" fill="currentColor"/></svg>
+      Download on the App Store
+    </a>
+  </div>
 </section>
 
 <!-- Footer -->
 <footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">chalk.tsaur.com</div>
-    </div>
-    <div class="footer-links">
-      <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" target="_blank" rel="noopener">App Store <span class="sym">↗&#xFE0E;</span></a>
-      <a href="#" onclick="window.location.href=atob('bWFpbHRvOmhlbGxvQGNoYWxrLnRzYXVyLmNvbQ==')" style="cursor:pointer">hello&#64;chalk&#46;tsaur&#46;com</a>
-      <a href="https://tsaur.com">More projects <span class="sym">↗&#xFE0E;</span></a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Tsaur <span class="sym">·</span> London, UK</span>
+  <a href="#" class="wordmark">
+    <span class="wordmark-dot"></span>
+    <span class="wordmark-text">chalk</span>
+  </a>
+  <div class="footer-links">
+    <a href="https://apps.apple.com/app/chalk-pool-scoring/id6744640806" target="_blank" rel="noopener">App Store</a>
+    <span>chalk.tsaur.com</span>
+    <a href="#" onclick="window.location.href=atob('bWFpbHRvOmhlbGxvQGNoYWxrLnRzYXVyLmNvbQ==');return false" style="cursor:pointer">hello&#64;chalk&#46;tsaur&#46;com</a>
+    <span>© 2026</span>
   </div>
 </footer>
 
-<script>
-function toggleFeature(row) {
-  const wasOpen = row.classList.contains('open');
-  // Close all rows first
-  document.querySelectorAll('.feature-row.open').forEach(r => r.classList.remove('open'));
-  // Toggle clicked row
-  if (!wasOpen) row.classList.add('open');
-}
-</script>
 </body>
 </html>
