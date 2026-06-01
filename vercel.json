@@ -1,22 +1,24 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "chalk.tsaur.com" }],
-      "destination": "/chalk/:path*"
-    },
+      "destination": "https://chalk.11i.sh/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "atlora.11i.sh" }],
       "destination": "/atlora/:path*"
-    },
-    { "source": "/friend/:handle", "destination": "/friend.html" }
+    }
   ],
   "headers": [
     {
-      "source": "/.well-known/apple-app-site-association",
+      "source": "/(.*)",
       "headers": [
-        { "key": "Content-Type", "value": "application/json" }
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
       ]
     }
   ]
