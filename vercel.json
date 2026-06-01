@@ -5,6 +5,11 @@
       "has": [{ "type": "host", "value": "chalk.tsaur.com" }],
       "destination": "/chalk/:path*"
     },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "atlora.11i.sh" }],
+      "destination": "/atlora/:path*"
+    },
     { "source": "/friend/:handle", "destination": "/friend.html" }
   ],
   "headers": [

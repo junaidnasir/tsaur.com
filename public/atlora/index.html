@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlora — travel command centre for 11i.sh</title>
+<meta name="description" content="Atlora is an iPhone-first travel command centre: map, itinerary, bookings, AI concierge, and trip CRM in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f6f1e6;
+  --bg-deep:#ede6d4;
+  --ink:#14110d;
+  --ink-soft:#4a463e;
+  --ink-mute:#8a8579;
+  --rule:#d6cdb8;
+  --accent:#1f6feb;
+  --amber:#f2b441;
+  --danger:#d24317;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter Tight","Helvetica Neue",sans-serif;font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;font-size:11px}.serif{font-family:"Instrument Serif","Times New Roman",serif;font-style:italic}.grid-bg{position:fixed;inset:0;pointer-events:none;opacity:.42;background-image:linear-gradient(to right,rgba(20,17,13,.07) 1px,transparent 1px);background-size:calc(100vw/12) 100%;mix-blend-mode:multiply;z-index:-2}.blob{position:fixed;border-radius:999px;filter:blur(28px);opacity:.23;z-index:-1;animation:float 14s ease-in-out infinite}.blob.one{width:46vw;height:46vw;background:var(--accent);left:-14vw;top:5vh}.blob.two{width:36vw;height:36vw;background:var(--amber);right:-10vw;top:35vh;animation-delay:-5s}.blob.three{width:28vw;height:28vw;background:var(--danger);left:52vw;bottom:-10vw;animation-delay:-9s}@keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(3vw,-2vh,0) scale(1.08)}}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--rule);backdrop-filter:blur(16px);background:color-mix(in oklch,var(--bg) 86%,transparent)}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em}.dot{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}.nav{display:flex;gap:18px;align-items:center;color:var(--ink-soft)}.nav a:hover{color:var(--accent)}
+.hero{min-height:94vh;display:flex;flex-direction:column;justify-content:space-between;padding:40px 28px 24px}.hero-mark{font-size:clamp(96px,22vw,360px);font-weight:850;letter-spacing:-.075em;line-height:.78;margin:8vh 0 0;color:var(--ink)}.hero-mark span:nth-child(2){color:var(--accent)}.hero-mark span:nth-child(5){color:var(--danger)}.lede{max-width:820px;font-size:clamp(24px,3vw,46px);line-height:1.05;color:var(--ink-soft);margin:24px 0 0}.lede strong{color:var(--ink);font-weight:600}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:60px}.meta div{padding:18px 0;border-right:1px solid var(--rule)}.meta div:last-child{border-right:0}.meta label{display:block;color:var(--ink-mute);margin-bottom:8px}.meta span{font-size:18px;font-weight:650;letter-spacing:-.02em}.marquee{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap;background:var(--ink);color:var(--bg);font-size:14px}.marquee-track{display:inline-block;padding:12px 0;animation:marquee 28s linear infinite}.marquee span{margin:0 18px}.marquee .star{font-family:"Instrument Serif";font-style:italic;color:var(--amber)}@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.section{padding:84px 28px;border-bottom:1px solid var(--rule)}.section-head{display:grid;grid-template-columns:80px 1fr 1fr;align-items:end;margin-bottom:32px}.section-head h2{margin:0;font-size:clamp(42px,6vw,92px);line-height:.88;letter-spacing:-.055em}.section-head .count{justify-self:end;color:var(--ink-mute)}.board{display:grid;grid-template-columns:1.15fr .85fr;gap:28px}.screen{border:1px solid var(--ink);background:#101522;color:#eef3ff;min-height:620px;border-radius:34px;padding:24px;box-shadow:0 30px 70px rgba(20,17,13,.24);position:relative;overflow:hidden}.screen:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 12%,rgba(31,111,235,.42),transparent 34%),radial-gradient(circle at 12% 80%,rgba(242,180,65,.25),transparent 30%);pointer-events:none}.phone-top,.phone-bottom,.tile,.timeline-row{position:relative;z-index:1}.phone-top{display:flex;align-items:center;justify-content:space-between}.pill{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.07)}.screen h3{font-size:54px;letter-spacing:-.06em;margin:48px 0 16px}.board-card{background:#f6f1e6;color:#14110d;border-radius:24px;padding:22px;margin:18px 0}.board-card small{color:#776f62}.route{display:flex;gap:8px;align-items:center;margin-top:14px;color:var(--accent);font-weight:800}.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:16px;background:rgba(255,255,255,.08)}.tile strong{display:block;font-size:19px;margin-top:10px}.tile.wide{grid-column:span 2}.copy-panel{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}.row{display:grid;grid-template-columns:80px 1fr 1.4fr 52px;gap:18px;align-items:start;padding:24px 0;border-bottom:1px solid var(--rule);transition:padding .32s cubic-bezier(.2,.7,.2,1),background .32s}.row:hover{padding-left:14px;background:color-mix(in oklch,var(--accent) 6%,transparent)}.row h3{margin:0;font-size:28px;letter-spacing:-.04em}.row p{margin:0;color:var(--ink-soft);font-size:17px;line-height:1.45}.arrow{font-size:28px;color:var(--accent);transition:transform .28s}.row:hover .arrow{transform:translateX(5px) rotate(-45deg)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule)}.feature{min-height:250px;padding:24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);position:relative}.feature .num{color:var(--accent)}.feature h3{font-size:32px;letter-spacing:-.04em;margin:56px 0 12px}.feature p{color:var(--ink-soft);line-height:1.45}.cta{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:end}.cta h2{font-size:clamp(62px,11vw,180px);letter-spacing:-.07em;line-height:.8;margin:0}.cta-card{border:1px solid var(--ink);padding:28px;background:var(--bg-deep)}.btn{display:inline-flex;align-items:center;justify-content:center;margin-top:22px;border:1px solid var(--ink);border-radius:999px;padding:15px 20px;font-weight:800;background:var(--ink);color:var(--bg)}.btn:hover{background:var(--accent);border-color:var(--accent)}footer{background:var(--ink);color:var(--bg);padding:70px 28px 28px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px}footer h2{font-size:clamp(54px,9vw,140px);letter-spacing:-.07em;line-height:.86;margin:0}footer a{color:var(--bg)}footer a:hover{color:var(--amber)}
+@media (max-width:880px){.nav{display:none}.hero-mark{font-size:22vw}.meta,.board,.features,.cta,.footer-grid{grid-template-columns:1fr}.meta div{border-right:0;border-bottom:1px solid var(--rule)}.section-head{grid-template-columns:54px 1fr}.section-head .count{display:none}.row{grid-template-columns:48px 1fr 38px}.row p{grid-column:2 / span 2}.screen{min-height:560px;border-radius:26px}.features{border-left:0}.feature{border-left:1px solid var(--rule)}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div><div class="blob one"></div><div class="blob two"></div><div class="blob three"></div>
+<header class="topbar">
+  <a class="brand" href="https://11i.sh"><span class="dot"></span><span>11i.sh / atlora</span></a>
+  <nav class="nav mono"><a href="#screens">Screens</a><a href="#system">System</a><a href="#ship">Ship</a><a href="https://github.com/junaidnasir/travel-planner-app" target="_blank" rel="noopener">GitHub ↗</a></nav>
+</header>
+<main>
+<section class="hero">
+  <div>
+    <div class="mono">11i.sh project · iOS travel CRM · in build</div>
+    <h1 class="hero-mark" aria-label="Atlora"><span>A</span><span>t</span><span>l</span><span>o</span><span>r</span><span>a</span><span>.</span></h1>
+    <p class="lede serif"><strong>The command centre for trips that are already in motion.</strong> Map, bookings, itinerary, warnings, expenses, and an AI concierge — built for iPhone first.</p>
+  </div>
+  <div class="meta">
+    <div><label class="mono">Platform</label><span>iOS · SwiftUI · Supabase</span></div>
+    <div><label class="mono">Status</label><span>Design batch implemented</span></div>
+    <div><label class="mono">Home</label><span>atlora.11i.sh</span></div>
+  </div>
+</section>
+<div class="marquee"><div class="marquee-track"><span>Travel command centre</span><span class="star">✶</span><span>Map-first itinerary</span><span class="star">✶</span><span>AI proposes, you apply</span><span class="star">✶</span><span>Bookings as records</span><span class="star">✶</span><span>Travel command centre</span><span class="star">✶</span><span>Map-first itinerary</span><span class="star">✶</span><span>AI proposes, you apply</span><span class="star">✶</span><span>Bookings as records</span><span class="star">✶</span></div></div>
+<section id="screens" class="section">
+  <div class="section-head"><span class="mono">§ 01</span><h2>Trip OS.</h2><span class="mono count">06 screens</span></div>
+  <div class="board">
+    <div class="screen" aria-label="Atlora screen preview">
+      <div class="phone-top mono"><span>ITALY</span><span class="pill">ON TRACK</span></div>
+      <h3>Today</h3>
+      <div class="board-card"><small class="mono">NEXT UP</small><h4 style="font-size:32px;letter-spacing:-.04em;margin:8px 0">Train to Firenze</h4><div class="route mono">LEAVE IN 34M · WALK 9 MIN ↗</div></div>
+      <div class="tiles"><div class="tile wide"><span class="mono">MAP</span><strong>Route + saved places</strong></div><div class="tile"><span class="mono">STAYS</span><strong>2 records</strong></div><div class="tile"><span class="mono">AI</span><strong>3 proposals</strong></div><div class="tile"><span class="mono">BUDGET</span><strong>Review split</strong></div><div class="tile"><span class="mono">MORE</span><strong>Checklist + docs</strong></div></div>
+    </div>
+    <div class="copy-panel">
+      <div class="row"><span class="mono">01</span><div><h3>Today</h3></div><p>Glanceable next-stop board, leave-by state, calm warnings, and free-gap suggestions.</p><span class="arrow">↗</span></div>
+      <div class="row"><span class="mono">02</span><div><h3>Map</h3></div><p>Saved places, route overlays, filters, and add-to-day flows that mutate the trip.</p><span class="arrow">↗</span></div>
+      <div class="row"><span class="mono">03</span><div><h3>Itinerary</h3></div><p>Planning/live modes, persisted edits, flex windows, and open blocks for Atlas.</p><span class="arrow">↗</span></div>
+      <div class="row"><span class="mono">04</span><div><h3>CRM records</h3></div><p>Stays and transport as record pages with truthful links and Apple Maps directions.</p><span class="arrow">↗</span></div>
+      <div class="row"><span class="mono">05</span><div><h3>Atlas AI</h3></div><p>Suggestion cards with Apply, Edit, Reject — nothing changes automatically.</p><span class="arrow">↗</span></div>
+    </div>
+  </div>
+</section>
+<section id="system" class="section">
+  <div class="section-head"><span class="mono">§ 02</span><h2>Built like records, not notes.</h2><span class="mono count">SwiftUI</span></div>
+  <div class="features">
+    <div class="feature"><span class="mono num">01</span><h3>Trip model</h3><p>Destinations, days, places, stays, transport, expenses, checklists, and AI suggestions share one trip graph.</p></div>
+    <div class="feature"><span class="mono num">02</span><h3>Cloud-ready</h3><p>Supabase schema and DTO skeletons are in place; local demo data keeps the app usable without secrets.</p></div>
+    <div class="feature"><span class="mono num">03</span><h3>Verified UI</h3><p>Presentation models test derived labels and state so design polish does not turn into fake analytics.</p></div>
+  </div>
+</section>
+<section id="ship" class="section">
+  <div class="cta"><h2>Coming to TestFlight.</h2><div class="cta-card"><div class="mono">Next packaging step</div><p style="font-size:20px;line-height:1.35;color:var(--ink-soft)">Apple Developer app setup, Xcode Cloud, app icon, and TestFlight packaging are being tracked now.</p><a class="btn" href="https://github.com/junaidnasir/travel-planner-app" target="_blank" rel="noopener">View source ↗</a></div></div>
+</section>
+</main>
+<footer>
+  <div class="footer-grid"><h2>11i.sh builds.</h2><div><div class="mono">Project</div><p>Atlora<br>travel command centre</p></div><div><div class="mono">Links</div><p><a href="https://11i.sh">11i.sh</a><br><a href="https://github.com/junaidnasir/travel-planner-app">GitHub</a><br><a href="mailto:hello@11i.sh">hello@11i.sh</a></p></div></div>
+</footer>
+</body>
+</html>
